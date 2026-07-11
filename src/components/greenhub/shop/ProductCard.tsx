@@ -2,7 +2,8 @@
 
 import { Heart, Star, ShoppingBag, CheckCircle2 } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { Product } from '@/lib/products'
+import Image from 'next/image'
+import { Product, formatKSH } from '@/lib/products'
 import { useCart } from '@/lib/cart-store'
 import { useToast } from '@/hooks/use-toast'
 
@@ -26,6 +27,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
       thc: product.thc,
       cbd: product.cbd,
       gradient: product.gradient,
+      image: product.image,
     })
     toast({
       title: 'Added to cart',
@@ -47,10 +49,18 @@ export function ProductCard({ product, index }: ProductCardProps) {
       className="glass glass-hover rounded-2xl overflow-hidden group flex flex-col relative"
     >
       {/* Image area */}
-      <div
-        className={`h-48 w-full bg-gradient-to-tr ${product.gradient} relative p-4 flex flex-col justify-between border-b border-white/5 overflow-hidden`}
-      >
-        <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors z-10" />
+      <div className={`h-48 w-full bg-gradient-to-tr ${product.gradient} relative p-4 flex flex-col justify-between border-b border-white/5 overflow-hidden`}>
+        <div className="absolute inset-0 bg-black/30" />
+        {/* Product image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:scale-110 transition-transform duration-500">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 300px"
+            className="object-contain p-6 drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+          />
+        </div>
 
         <div className="flex justify-between items-start relative z-20">
           {product.badge ? (
@@ -66,11 +76,6 @@ export function ProductCard({ product, index }: ProductCardProps) {
           >
             <Heart className="w-4 h-4" />
           </button>
-        </div>
-
-        {/* Abstract product shape */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:scale-110 transition-transform duration-500">
-          <div className="w-24 h-24 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-[0_0_30px_rgba(255,255,255,0.1)]" />
         </div>
       </div>
 
@@ -108,12 +113,12 @@ export function ProductCard({ product, index }: ProductCardProps) {
           )}
         </div>
 
-        <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between">
+        <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between gap-2">
           <div className="flex flex-col">
             {product.oldPrice && (
-              <span className="text-xs text-gray-500 line-through">${product.oldPrice}</span>
+              <span className="text-xs text-gray-500 line-through">{formatKSH(product.oldPrice)}</span>
             )}
-            <span className="text-xl font-bold">${product.price}</span>
+            <span className="text-lg font-bold text-primary">{formatKSH(product.price)}</span>
           </div>
 
           <div className="flex gap-2">
@@ -126,7 +131,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
             </button>
             <button
               onClick={handleBuyNow}
-              className="px-4 h-10 rounded-xl bg-primary hover:bg-emerald-400 text-black text-sm font-bold transition-colors"
+              className="px-4 h-10 rounded-xl bg-primary hover:bg-emerald-400 text-black text-sm font-bold transition-colors whitespace-nowrap"
             >
               Buy Now
             </button>

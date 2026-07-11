@@ -11,7 +11,7 @@ const defaultFilters: ShopFilters = {
   strains: [],
   effects: [],
   flavors: [],
-  priceMax: 500,
+  priceMax: 16000,
   thcMax: 40,
   sellers: [],
 }
@@ -72,7 +72,7 @@ export function ShopProductGrid() {
     filters.effects.length +
     filters.flavors.length +
     filters.sellers.length +
-    (filters.priceMax < 500 ? 1 : 0) +
+    (filters.priceMax < 16000 ? 1 : 0) +
     (filters.thcMax < 40 ? 1 : 0)
 
   return (

@@ -22,6 +22,7 @@ function mapRow(row: any): Product {
     effects: row.effects ? row.effects.split(',').filter(Boolean) : [],
     flavors: row.flavors ? row.flavors.split(',').filter(Boolean) : [],
     gradient: row.gradient,
+    image: row.image,
     verified: row.verified,
     featured: row.featured,
     trending: row.trending,

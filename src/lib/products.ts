@@ -14,6 +14,7 @@ export interface Product {
   effects: string[]
   flavors: string[]
   gradient: string
+  image: string
   verified?: boolean
   featured?: boolean
   trending?: boolean
@@ -24,6 +25,11 @@ export interface Category {
   count: string
   emoji: string
   color: string
+}
+
+// Format a number as Kenyan Shillings (KSH)
+export function formatKSH(amount: number): string {
+  return 'KSH ' + Math.round(amount).toLocaleString('en-KE')
 }
 
 export const categories: Category[] = [

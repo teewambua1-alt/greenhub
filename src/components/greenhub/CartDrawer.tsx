@@ -2,9 +2,11 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ShoppingBag, Plus, Minus, Trash2, ArrowRight, ShieldCheck } from 'lucide-react'
+import Image from 'next/image'
 import { useState } from 'react'
 import { useCart } from '@/lib/cart-store'
 import { useToast } from '@/hooks/use-toast'
+import { formatKSH } from '@/lib/products'
 
 export function CartDrawer() {
   const { items, isOpen, setOpen, removeItem, updateQuantity, clearCart, totalPrice } = useCart()
@@ -13,19 +15,18 @@ export function CartDrawer() {
   const { toast } = useToast()
 
   const subtotal = totalPrice()
-  const delivery = subtotal > 50 ? 0 : 5
+  const delivery = subtotal > 6000 ? 0 : 500
   const total = subtotal + delivery
 
   const handleCheckout = async () => {
     if (items.length === 0) return
     setCheckingOut(true)
-    // Simulate order processing
     await new Promise((r) => setTimeout(r, 1800))
     setCheckingOut(false)
     setDone(true)
     toast({
       title: 'Order placed!',
-      description: `Your order of $${total.toFixed(2)} is being prepared.`,
+      description: `Your order of ${formatKSH(total)} is being prepared.`,
     })
     setTimeout(() => {
       clearCart()
@@ -84,7 +85,7 @@ export function CartDrawer() {
                   <button
                     onClick={() => {
                       setOpen(false)
-                      document.querySelector('#shop')?.scrollIntoView({ behavior: 'smooth' })
+                      window.location.href = '/shop'
                     }}
                     className="bg-primary hover:bg-emerald-400 text-black px-6 py-2.5 rounded-full font-medium transition-colors"
                   >
@@ -101,8 +102,14 @@ export function CartDrawer() {
                     exit={{ opacity: 0, x: 20 }}
                     className="glass rounded-2xl p-3 flex gap-3"
                   >
-                    <div className={`w-20 h-20 rounded-xl bg-gradient-to-tr ${item.gradient} border border-white/10 flex items-center justify-center shrink-0`}>
-                      <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10" />
+                    <div className={`relative w-20 h-20 rounded-xl bg-gradient-to-tr ${item.gradient} border border-white/10 shrink-0 overflow-hidden`}>
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        sizes="80px"
+                        className="object-contain p-2"
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-start gap-2">
@@ -136,7 +143,7 @@ export function CartDrawer() {
                             <Plus className="w-3 h-3" />
                           </button>
                         </div>
-                        <span className="font-bold text-sm">${(item.price * item.quantity).toFixed(2)}</span>
+                        <span className="font-bold text-sm text-primary">{formatKSH(item.price * item.quantity)}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -150,22 +157,22 @@ export function CartDrawer() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between text-gray-400">
                     <span>Subtotal</span>
-                    <span className="text-white">${subtotal.toFixed(2)}</span>
+                    <span className="text-white">{formatKSH(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-gray-400">
                     <span>Delivery</span>
                     <span className="text-white">
-                      {delivery === 0 ? <span className="text-primary">FREE</span> : `$${delivery.toFixed(2)}`}
+                      {delivery === 0 ? <span className="text-primary">FREE</span> : formatKSH(delivery)}
                     </span>
                   </div>
                   {delivery > 0 && (
                     <p className="text-xs text-gray-500">
-                      Add ${(50 - subtotal).toFixed(2)} more for free delivery
+                      Add {formatKSH(6000 - subtotal)} more for free delivery
                     </p>
                   )}
                   <div className="flex justify-between text-base font-bold pt-2 border-t border-white/10">
                     <span>Total</span>
-                    <span className="text-primary">${total.toFixed(2)}</span>
+                    <span className="text-primary">{formatKSH(total)}</span>
                   </div>
                 </div>
 

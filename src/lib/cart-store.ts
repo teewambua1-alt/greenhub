@@ -10,6 +10,7 @@ export interface CartItem {
   thc: string
   cbd: string
   gradient: string
+  image: string
   quantity: number
 }
 

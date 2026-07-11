@@ -1,21 +1,23 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Search, ShoppingCart, Leaf, Menu, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useCart } from '@/lib/cart-store'
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Shop', href: '#shop' },
-  { label: 'How It Works', href: '#how' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Home', href: '/' },
+  { label: 'Shop', href: '/shop' },
+  { label: 'How It Works', href: '/how-it-works' },
+  { label: 'Learn', href: '/learn' },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const pathname = usePathname()
   const totalItems = useCart((s) => s.items.reduce((sum, i) => sum + i.quantity, 0))
   const setOpen = useCart((s) => s.setOpen)
 
@@ -25,10 +27,9 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleNav = (href: string) => {
-    setMobileOpen(false)
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
   }
 
   return (
@@ -41,24 +42,28 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <button
-          onClick={() => handleNav('#home')}
-          className="flex items-center gap-2 group"
-          aria-label="GreenHub home"
-        >
+        <Link href="/" className="flex items-center gap-2 group" aria-label="GreenHub home">
           <Leaf className="w-8 h-8 text-primary group-hover:rotate-12 transition-transform" />
           <span className="text-xl font-bold tracking-tight">GreenHub</span>
-        </button>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
           {navLinks.map((link) => (
-            <button
+            <Link
               key={link.href}
-              onClick={() => handleNav(link.href)}
-              className="hover:text-white transition-colors"
+              href={link.href}
+              className={`transition-colors relative ${
+                isActive(link.href) ? 'text-white' : 'hover:text-white'
+              }`}
             >
               {link.label}
-            </button>
+              {isActive(link.href) && (
+                <motion.span
+                  layoutId="nav-underline"
+                  className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-primary rounded-full"
+                />
+              )}
+            </Link>
           ))}
         </div>
 
@@ -88,27 +93,31 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden glass border-t border-white/5 mt-3"
-        >
-          <div className="px-6 py-4 flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => handleNav(link.href)}
-                className="text-left text-gray-300 hover:text-white transition-colors"
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden glass border-t border-white/5 mt-3 overflow-hidden"
+          >
+            <div className="px-6 py-4 flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`text-left transition-colors ${
+                    isActive(link.href) ? 'text-primary' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   )
 }

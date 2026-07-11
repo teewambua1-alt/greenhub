@@ -26,6 +26,7 @@ model Product {
   effects   String
   flavors   String
   gradient  String
+  image     String
   verified  Boolean  @default(true)
   featured  Boolean  @default(false)
   trending  Boolean  @default(false)

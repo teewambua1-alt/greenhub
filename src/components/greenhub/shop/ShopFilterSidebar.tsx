@@ -27,7 +27,7 @@ export function ShopFilterSidebar({ filters, onChange }: Props) {
   }
 
   const reset = () => {
-    onChange({ strains: [], effects: [], flavors: [], priceMax: 500, thcMax: 40, sellers: [] })
+    onChange({ strains: [], effects: [], flavors: [], priceMax: 16000, thcMax: 40, sellers: [] })
   }
 
   return (
@@ -146,19 +146,20 @@ export function ShopFilterSidebar({ filters, onChange }: Props) {
         <div>
           <div className="flex justify-between items-center mb-3">
             <h4 className="font-medium text-sm text-gray-300 uppercase tracking-wider">Max Price</h4>
-            <span className="text-primary text-xs font-bold bg-primary/10 px-2 py-1 rounded">${filters.priceMax}</span>
+            <span className="text-primary text-xs font-bold bg-primary/10 px-2 py-1 rounded">KSH {filters.priceMax.toLocaleString()}</span>
           </div>
           <input
             type="range"
             min="0"
-            max="500"
+            max="16000"
+            step="100"
             value={filters.priceMax}
             onChange={(e) => onChange({ ...filters, priceMax: parseInt(e.target.value) })}
             className="w-full cursor-pointer"
           />
           <div className="flex justify-between text-xs text-gray-500 mt-2">
-            <span>$0</span>
-            <span>$500+</span>
+            <span>KSH 0</span>
+            <span>KSH 16,000+</span>
           </div>
         </div>
 
