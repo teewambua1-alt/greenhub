@@ -15,7 +15,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
   }, [pathname])
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white flex flex-col">
+    <div className="min-h-screen bg-[#050505] text-white flex flex-col overflow-x-hidden">
       <Navbar />
       <CartDrawer />
       <main className="flex-grow">{children}</main>

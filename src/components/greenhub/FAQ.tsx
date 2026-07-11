@@ -9,14 +9,14 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="py-24 relative">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-          <p className="text-gray-400">Everything you need to know about the product and billing.</p>
+    <section id="faq" className="py-16 sm:py-24 relative">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+          <p className="text-sm sm:text-base text-gray-400">Everything you need to know about the product and billing.</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
@@ -28,12 +28,13 @@ export function FAQ() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"
+                className="w-full px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors gap-4"
               >
-                <span className="font-medium text-lg">{faq.question}</span>
+                <span className="font-medium text-base sm:text-lg">{faq.question}</span>
                 <motion.div
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
+                  className="shrink-0"
                 >
                   <ChevronDown className="w-5 h-5 text-gray-400" />
                 </motion.div>
@@ -48,7 +49,7 @@ export function FAQ() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 text-gray-400 leading-relaxed border-t border-white/5 pt-4">
+                    <div className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm sm:text-base text-gray-400 leading-relaxed border-t border-white/5 pt-4">
                       {faq.answer}
                     </div>
                   </motion.div>

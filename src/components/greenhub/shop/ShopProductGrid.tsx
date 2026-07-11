@@ -93,24 +93,24 @@ export function ShopProductGrid() {
         </button>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         <div className="hidden lg:block w-64 shrink-0">
           <ShopFilterSidebar filters={filters} onChange={setFilters} />
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           {/* Toolbar */}
-          <div className="flex flex-col sm:flex-row justify-between items-center mb-6 glass rounded-2xl p-4 border border-white/5 gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 glass rounded-2xl p-3 sm:p-4 border border-white/5 gap-3 sm:gap-4">
             <div className="text-sm text-gray-400 font-medium">
               <span className="text-white font-bold">{filtered.length}</span> Products Found
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="relative group">
+            <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-between sm:justify-start">
+              <div className="relative group flex-1 sm:flex-none">
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className="flex items-center gap-2 text-sm bg-black/40 border border-white/10 rounded-lg px-4 py-2 hover:bg-white/5 transition-colors text-white appearance-none cursor-pointer pr-8"
+                  className="flex items-center gap-2 text-sm bg-black/40 border border-white/10 rounded-lg px-3 sm:px-4 py-2 hover:bg-white/5 transition-colors text-white appearance-none cursor-pointer pr-8 w-full sm:w-auto"
                 >
                   <option value="popular" className="bg-[#0a0a0a]">Popular</option>
                   <option value="price-low" className="bg-[#0a0a0a]">Price: Low to High</option>
@@ -141,10 +141,10 @@ export function ShopProductGrid() {
 
           {/* Grid */}
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="glass rounded-2xl overflow-hidden animate-pulse">
-                  <div className="h-48 bg-white/5" />
+                  <div className="h-40 sm:h-48 bg-white/5" />
                   <div className="p-4 space-y-3">
                     <div className="h-4 bg-white/5 rounded w-1/2" />
                     <div className="h-5 bg-white/5 rounded w-3/4" />
@@ -154,10 +154,10 @@ export function ShopProductGrid() {
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <div className="glass rounded-2xl p-16 text-center">
+            <div className="glass rounded-2xl p-8 sm:p-16 text-center">
               <div className="text-5xl mb-4">🔍</div>
-              <h3 className="text-xl font-bold mb-2">No products found</h3>
-              <p className="text-gray-400 mb-6">Try adjusting your filters to see more results.</p>
+              <h3 className="text-lg sm:text-xl font-bold mb-2">No products found</h3>
+              <p className="text-sm sm:text-base text-gray-400 mb-6">Try adjusting your filters to see more results.</p>
               <button
                 onClick={() => setFilters(defaultFilters)}
                 className="bg-primary hover:bg-emerald-400 text-black px-6 py-2 rounded-full font-medium transition-colors"
@@ -166,7 +166,7 @@ export function ShopProductGrid() {
               </button>
             </div>
           ) : (
-            <div className={`grid gap-6 ${view === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1'}`}>
+            <div className={`grid gap-4 sm:gap-6 ${view === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1'}`}>
               {filtered.map((product, i) => (
                 <ProductCard key={product.id} product={product} index={i} />
               ))}

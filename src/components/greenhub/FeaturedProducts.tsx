@@ -42,21 +42,21 @@ export function FeaturedProducts() {
   }
 
   return (
-    <section className="py-24 relative bg-white/[0.01]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20 mb-4">
+    <section className="py-16 sm:py-24 relative bg-white/[0.01]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium border border-primary/20 mb-4">
             <Star className="w-4 h-4 fill-primary" />
             Hand-picked
           </div>
-          <h2 className="text-4xl font-bold mb-4">Featured Products</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4">Featured Products</h2>
+          <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto">
             Hand-picked premium selections from our top-rated verified dispensaries.
           </p>
         </div>
 
         {loading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[...Array(4)].map((_, i) => (
               <div key={i} className="glass rounded-2xl overflow-hidden animate-pulse">
                 <div className="h-48 bg-white/5" />
@@ -69,7 +69,7 @@ export function FeaturedProducts() {
             ))}
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {products.map((product, i) => (
               <motion.div
                 key={product.id}
@@ -79,7 +79,7 @@ export function FeaturedProducts() {
                 transition={{ delay: i * 0.1 }}
                 className="glass glass-hover rounded-2xl overflow-hidden group flex flex-col"
               >
-                <div className={`h-48 w-full bg-gradient-to-tr ${product.gradient} relative p-4 flex flex-col justify-between border-b border-white/5 overflow-hidden`}>
+                <div className={`h-40 sm:h-48 w-full bg-gradient-to-tr ${product.gradient} relative p-3 sm:p-4 flex flex-col justify-between border-b border-white/5 overflow-hidden`}>
                   <div className="absolute inset-0 bg-black/30" />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:scale-110 transition-transform duration-500">
                     <Image
@@ -87,7 +87,7 @@ export function FeaturedProducts() {
                       alt={product.name}
                       fill
                       sizes="(max-width: 768px) 100vw, 300px"
-                      className="object-contain p-6 drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+                      className="object-contain p-4 sm:p-6 drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
                     />
                   </div>
                   <div className="flex justify-between items-start relative z-20">
@@ -101,9 +101,9 @@ export function FeaturedProducts() {
                   </div>
                 </div>
 
-                <div className="p-5 flex-1 flex flex-col">
+                <div className="p-4 sm:p-5 flex-1 flex flex-col">
                   <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
-                    <span>{product.brand}</span>
+                    <span className="truncate">{product.brand}</span>
                     <div className="flex items-center gap-1 text-amber-400">
                       <Star className="w-3 h-3 fill-current" />
                       <span>{product.rating}</span>
@@ -111,10 +111,10 @@ export function FeaturedProducts() {
                     </div>
                   </div>
 
-                  <h3 className="font-semibold text-lg mb-1 truncate">{product.name}</h3>
-                  <p className="text-sm text-primary mb-4">{product.type}</p>
+                  <h3 className="font-semibold text-base sm:text-lg mb-1 truncate">{product.name}</h3>
+                  <p className="text-sm text-primary mb-3 sm:mb-4">{product.type}</p>
 
-                  <div className="flex gap-2 mb-6">
+                  <div className="flex gap-2 mb-4 sm:mb-6">
                     <div className="px-2 py-1 bg-white/5 rounded text-xs text-gray-300 border border-white/5">
                       THC {product.thc}
                     </div>
@@ -123,16 +123,16 @@ export function FeaturedProducts() {
                     </div>
                   </div>
 
-                  <div className="mt-auto flex items-center justify-between pt-4 border-t border-white/10">
-                    <span className="text-xl font-bold text-primary">{formatKSH(product.price)}</span>
+                  <div className="mt-auto flex items-center justify-between pt-3 sm:pt-4 border-t border-white/10 gap-2">
+                    <span className="text-base sm:text-xl font-bold text-primary">{formatKSH(product.price)}</span>
                     <button
                       onClick={() => {
                         handleAdd(product)
                         setOpen(true)
                       }}
-                      className="bg-white/10 hover:bg-primary hover:text-black transition-colors px-4 py-2 rounded-full text-sm font-medium flex items-center gap-1.5"
+                      className="bg-white/10 hover:bg-primary hover:text-black transition-colors px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1.5 whitespace-nowrap"
                     >
-                      Add to Cart <ArrowRight className="w-3.5 h-3.5" />
+                      Add <span className="hidden sm:inline">to Cart</span> <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
@@ -141,10 +141,10 @@ export function FeaturedProducts() {
           </div>
         )}
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-8 sm:mt-12">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 glass glass-hover px-6 py-3 rounded-full font-medium"
+            className="inline-flex items-center gap-2 glass glass-hover px-5 sm:px-6 py-3 rounded-full font-medium text-sm sm:text-base"
           >
             View All Products <ArrowRight className="w-4 h-4" />
           </Link>

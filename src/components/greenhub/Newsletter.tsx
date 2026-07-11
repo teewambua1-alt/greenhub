@@ -29,20 +29,20 @@ export function Newsletter() {
   }
 
   return (
-    <section className="py-12 relative px-6">
+    <section className="py-8 sm:py-12 relative px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass rounded-3xl p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8"
+          className="glass rounded-3xl p-6 sm:p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8"
         >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px]" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px]" />
+          <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-primary/10 rounded-full blur-[80px]" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 sm:w-64 sm:h-64 bg-emerald-500/10 rounded-full blur-[80px]" />
 
-          <div className="relative z-10 md:max-w-md">
-            <h2 className="text-3xl font-bold mb-3">Stay Updated</h2>
-            <p className="text-gray-400">
+          <div className="relative z-10 md:max-w-md text-center md:text-left">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">Stay Updated</h2>
+            <p className="text-sm sm:text-base text-gray-400">
               Join our newsletter for exclusive deals, new strain drops, and cannabis education.
             </p>
           </div>
@@ -57,13 +57,13 @@ export function Newsletter() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
-                className="w-full pl-12 pr-32 py-4 bg-black/40 border border-white/10 rounded-full focus:outline-none focus:border-primary/50 text-white placeholder-gray-500 backdrop-blur-md transition-colors"
+                className="w-full pl-12 pr-28 sm:pr-32 py-3.5 sm:py-4 bg-black/40 border border-white/10 rounded-full focus:outline-none focus:border-primary/50 text-white placeholder-gray-500 backdrop-blur-md transition-colors text-sm sm:text-base"
                 required
               />
               <button
                 type="submit"
                 disabled={status === 'loading' || status === 'success'}
-                className="absolute inset-y-1.5 right-1.5 px-6 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-colors disabled:opacity-70"
+                className="absolute inset-y-1.5 right-1.5 px-4 sm:px-6 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-colors disabled:opacity-70 text-xs sm:text-sm"
               >
                 {status === 'loading' ? '...' : status === 'success' ? 'Done!' : 'Subscribe'}
               </button>

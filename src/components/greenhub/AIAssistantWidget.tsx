@@ -99,10 +99,10 @@ export function AIAssistantWidget() {
           setIsOpen(true)
           setHasNewBadge(false)
         }}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-black flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)] z-50 hover:bg-emerald-400 transition-colors"
+        className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary text-black flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)] z-50 hover:bg-emerald-400 transition-colors"
         aria-label="Open AI assistant"
       >
-        <Sparkles className="w-6 h-6" />
+        <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />
         {hasNewBadge && (
           <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-[#050505] animate-pulse" />
         )}
@@ -116,7 +116,7 @@ export function AIAssistantWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 w-[calc(100vw-3rem)] sm:w-[380px] bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden max-h-[600px] h-[80vh]"
+            className="fixed bottom-20 right-3 sm:bottom-24 sm:right-6 w-[calc(100vw-1.5rem)] sm:w-[380px] bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-2xl z-50 flex flex-col overflow-hidden max-h-[600px] h-[80vh]"
           >
             {/* Header */}
             <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">

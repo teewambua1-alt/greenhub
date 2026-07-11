@@ -47,9 +47,9 @@ function Counter({ value, suffix, format }: { value: number; suffix: string; for
 
 export function Stats() {
   return (
-    <section className="py-20 border-y border-white/5 relative bg-black/50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/5">
+    <section className="py-12 sm:py-20 border-y border-white/5 relative bg-black/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 divide-x divide-white/5">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -57,12 +57,12 @@ export function Stats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              className="text-center px-4"
+              className="text-center px-2 sm:px-4"
             >
-              <div className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mb-2">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mb-2">
                 <Counter value={stat.value} suffix={stat.suffix} format={stat.format} />
               </div>
-              <div className="text-sm font-medium text-primary tracking-wider uppercase">
+              <div className="text-xs sm:text-sm font-medium text-primary tracking-wider uppercase">
                 {stat.label}
               </div>
             </motion.div>

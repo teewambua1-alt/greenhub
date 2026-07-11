@@ -49,7 +49,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
       className="glass glass-hover rounded-2xl overflow-hidden group flex flex-col relative"
     >
       {/* Image area */}
-      <div className={`h-48 w-full bg-gradient-to-tr ${product.gradient} relative p-4 flex flex-col justify-between border-b border-white/5 overflow-hidden`}>
+      <div className={`h-40 sm:h-48 w-full bg-gradient-to-tr ${product.gradient} relative p-3 sm:p-4 flex flex-col justify-between border-b border-white/5 overflow-hidden`}>
         <div className="absolute inset-0 bg-black/30" />
         {/* Product image */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:scale-110 transition-transform duration-500">
@@ -57,14 +57,14 @@ export function ProductCard({ product, index }: ProductCardProps) {
             src={product.image}
             alt={product.name}
             fill
-            sizes="(max-width: 768px) 100vw, 300px"
-            className="object-contain p-6 drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+            sizes="(max-width: 768px) 50vw, 300px"
+            className="object-contain p-4 sm:p-6 drop-shadow-[0_0_20px_rgba(0,0,0,0.5)]"
           />
         </div>
 
         <div className="flex justify-between items-start relative z-20">
           {product.badge ? (
-            <span className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md rounded-full border border-white/10 text-white">
+            <span className="px-2 sm:px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md rounded-full border border-white/10 text-white">
               {product.badge}
             </span>
           ) : (
@@ -82,18 +82,18 @@ export function ProductCard({ product, index }: ProductCardProps) {
       {/* Content */}
       <div className="p-4 flex-1 flex flex-col relative z-20 bg-black/40">
         <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
-          <div className="flex items-center gap-1">
-            <span>{product.brand}</span>
-            {product.verified !== false && <CheckCircle2 className="w-3 h-3 text-primary" />}
+          <div className="flex items-center gap-1 min-w-0">
+            <span className="truncate">{product.brand}</span>
+            {product.verified !== false && <CheckCircle2 className="w-3 h-3 text-primary shrink-0" />}
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 shrink-0">
             <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
             <span className="text-white font-medium">{product.rating}</span>
-            <span className="text-gray-500">({product.reviews})</span>
+            <span className="text-gray-500 hidden sm:inline">({product.reviews})</span>
           </div>
         </div>
 
-        <h3 className="font-semibold text-lg leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-1">
+        <h3 className="font-semibold text-base sm:text-lg leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-1">
           {product.name}
         </h3>
 
@@ -113,25 +113,25 @@ export function ProductCard({ product, index }: ProductCardProps) {
           )}
         </div>
 
-        <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between gap-2">
-          <div className="flex flex-col">
+        <div className="mt-auto pt-3 sm:pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+          <div className="flex flex-col min-w-0">
             {product.oldPrice && (
               <span className="text-xs text-gray-500 line-through">{formatKSH(product.oldPrice)}</span>
             )}
-            <span className="text-lg font-bold text-primary">{formatKSH(product.price)}</span>
+            <span className="text-base sm:text-lg font-bold text-primary truncate">{formatKSH(product.price)}</span>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 shrink-0">
             <button
               onClick={handleAdd}
-              className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-colors"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-colors"
               aria-label="Add to cart"
             >
               <ShoppingBag className="w-4 h-4" />
             </button>
             <button
               onClick={handleBuyNow}
-              className="px-4 h-10 rounded-xl bg-primary hover:bg-emerald-400 text-black text-sm font-bold transition-colors whitespace-nowrap"
+              className="px-3 sm:px-4 h-9 sm:h-10 rounded-xl bg-primary hover:bg-emerald-400 text-black text-xs sm:text-sm font-bold transition-colors whitespace-nowrap"
             >
               Buy Now
             </button>
